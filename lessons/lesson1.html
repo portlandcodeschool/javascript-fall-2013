@@ -8,42 +8,111 @@
 
 		<link rel="stylesheet" href="../stylesheets/reveal/reveal.min.css">
 		<link rel="stylesheet" type="text/css" href="../stylesheets/reveal/theme/solarized.css">
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+		<link rel="stylesheet" href="../stylesheets/lib/css/zenburn.css">
 
 	</head>
 
 	<body>
 
 		<div class="reveal">
-
 			<div class="slides">
-			<section>
-					<section>
-						<h2>Barebones Presentation</h2>
-						<p>This example contains the bare minimum includes and markup required to run a reveal.js presentation.</p>
-					</section>
+				<section>
+					<h1>Welcome to Javascript</h1>
+					<h3>at Portland Code School!</h3>
+					<p>Lesson 1: Introductions, Statements and Operators</p>
+				</section>
 
-					<section>
-						<h2>No Theme</h2>
-						<p>There's no theme included, so it will fall back on browser defaults.</p>
-					</section>
+				<section>
+					<h2>ECMAScript</h2>
+					<p>Sounds like a skin disease?</p>
+					<p class="fragment">ECMAScript is the name of the language specification. Javascript in an implementaion of ECMAScript</p>
+					<p class="fragment">More precisely, Javascript is a collective name for a set of ECMAScript implementations called 'engines'</p>
+				</section>
 
-					<section>
-						<h2>Some code</h2>
-						<pre><code>
-var aFunction = function () {
-	var x = 1;
-	console.log(x);
-}
-						</code></pre>
-					</section>
-			</section>
+				<section>
+					<h2>Javascript Engines</h2>
+						<ul>
+							<li><em>V8</em> - Chrome</li>
+							<li><em>SpiderMonkey</em> - Firefox</li>
+							<li><em>Nitro</em> - Safari</li>
+							<li><em>Carakan</em> - Opera (no longer developed)</li>
+							<li><em>Chakra</em> - IE9+</li>
+						</ul>
+				</section>
+
+				<section>
+					<h2>Node.js</h2>
+					<p>Node.js is an environment for writing programs with <em>evented</em>, <em>asynchronous</em> I/O.
+					<span class="fragment">Does that clear everything up?</p><p class="fragment">Node.js = the V8 javascript engine + an asynchronous I/O library called <em>libuv</em> + a few other goodies</p>
+				</section>
+
+				<section>
+					<h2>Node.js</h2>
+					<p>For our purposes right now. Node.js is an environment for writing vanilla flavor javascript outside of a browser environment.</p>
+					<a href="http://www.nodejs.org">Let's install it on our computers!</a>
+				</section>
+
+				<section>
+					<h2>Welcome to the REPL!</h2>
+					<ul>
+						<li>R - Read</li>
+						<li>E - Eval</li>
+						<li>P - Print</li>
+						<li>L - Loop</li>
+					</ul>
+					<p>This means that everytime you type something and press 'Enter', the interpreter will <em>read</em> your input, <em>evaluate</em> it (including executing any instructions it contains), <em>print</em> the result and <em>loop</em>around to prepare for your next instruction</p>
+				</section>
+
+				<section>
+					<h2>Expressions</h2>
+					<p>Expressions are commands that collectively evaluate to some value. When we type in an expression, the REPL returns the collective value of the expression we typed</p><p>Let's try this out with some mathematical expressions.</p>
+					<pre><code data-trim>
+2
+// 2
+1 + 10
+// 11
+2 + 4 * 2
+// 10
+(2 + 4) * 2
+// 12
+</code></pre>
+				</section>
+				<section>
+					<h2>Operators</h2>
+					<p>Operators allow us to build complex expressions out of simple ones. Javascript has a lot of operators. When the interpreter begins to evaluate an expression, its operators are processed in a particular ranking order called <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence">operator precedence.</a>Understanding operator precedence is really important, but you don't have to absorb the entire chart right now</p>
+				</section>
+
+				<section>
+					<h2>Variables</h2>
+					<p>Variables in javascript are reference names where we can store expression values for later use. Variables are created (declared) with a variable declaration <em>statement</em></p>
+					<pre><code data-trim>
+var aValue = 1;
+
+var anotherValue = 2;
+
+aValue + anotherValue;
+// 3
+				</code></pre>
+				</section>
+
+				<section>
+					<h2>Variable Types</h2>
+					<p>Javascript has a few different types of variables, and we'll be getting to know them all intimately during this course. For now, though, we only need to deal with a couple types: Strings and Numbers</p>
+					<pre><code data-trim>
+// This is an example of working with strings
+var firstName = "David";
+var lastName = "Manning";
+
+firstName + lastName;
+					</code></pre>
+				</section>			
+
 
 			</div>
 
 		</div>
 
-		<script src="../../lib/js/head.min.js"></script>
+		<script src="../../stylesheets/lib/js/head.min.js"></script>
 		<script src="../../javascripts/reveal.min.js"></script>
 
 		<script>
@@ -51,7 +120,7 @@ var aFunction = function () {
 			Reveal.initialize({
 				theme: Reveal.getQueryHash().theme,
 				dependencies: [
-					{ src: 'plugin/highlight/highlight.js',
+					{ src: '../plugin/highlight/highlight.js',
 					  async: true,
 					  callback: function() {
 					  	hljs.initHighlightingOnLoad(); 
