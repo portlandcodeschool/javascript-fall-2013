@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>reveal.js - Barebones</title>
+
+    <link rel="stylesheet" href="../stylesheets/reveal/reveal.min.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/reveal/theme/solarized.css">
+    <link rel="stylesheet" href="../stylesheets/lib/css/zenburn.css">
+
+  </head>
+
+  <body>
+
+    <div class="reveal">
+      <div class="slides">
+
+      <section>
+        <h1>PCS Javascript</h1>
+        <h2>Week 2</h2>
+        <p>Conditionals and Loops</p>
+      </section>
+        
+      <section>
+        <h2>Conditional Statements</h2>
+        <h3>do it... conditionally</h3>
+        <pre><code data-trim>
+var x = 3;
+if (x === 3) {
+  console.log("X is equal to three!");
+} else {
+  console.log("X is not equal to three!")
+}
+        </code></pre>
+      </section>
+
+      <section>
+        <h3>Conditionals may look like this:</h3>
+        <pre><code data-trim>
+if (expression) console.log("This is executed conditionally");
+        </code></pre>
+        <h3>Or this:</h3>
+        <pre><code data-trim>
+if (expression) {
+  // some conditionally executed code
+}
+        </code></pre>
+        <h3>Or this:</h3>
+        <pre><code data-trim>
+if (expression) {
+  console.log("This is executed if the expression is true");
+} else {
+  console.log("This is executed if the expression is not true");
+}
+        </code></pre>
+
+      </section>
+
+      <section>
+        <h2>Let's talk about truth</h2>
+        <p>Javascript has special types for dealing with tests. These types are called boolean types.
+        They are represented in your code by the keywords <code>true</code> and <code>false</code></p>
+        <pre><code data-trim>
+if (true) {
+  console.log("This will always execute");
+}
+
+if (false) {
+  console.log("This will never execute");
+}
+        </code></pre>
+      </section>
+
+      <section>
+        <h2>Truthiness</h2>
+        <p>Comparison operators like <code>===</code>, <code>!==</code>, <code>>=</code>, <code><=</code> evaluate to either <code>true</code> or <code>false</code>.
+      </section>
+
+      <section>
+      <h2>Switch Statements</h2>
+        <pre><code data-trim>
+switch (aBeatle) {
+  case "John":
+    console.log("He's dead");
+    break;
+  case "Paul":
+    console.log("Not dead yet!");
+    break;
+  case "George":
+    console.log("Dead. Dead. Dead.");
+    break;
+  case "Ringo":
+    console.log("Not dead, I guess?");
+    break;
+  default:
+    console.log("That's not a beatle!");
+}
+    </code></pre>
+      </section>
+
+      <section>
+        <h2>Loops! Loops! Loops!</h2>
+        <p>Loops allow you to execute the same code over and over until some condition is met</p>
+      </section>
+
+      <section>
+        <h2>For loops</h2>
+        <pre><code data-trim>
+for (var i = 1; i !== 11; i = i + 1) {
+  console.log("This is loop number " + i);
+}
+        </pre></code>
+        <ul>
+          <li><code>i</code> is initialized at 1;</li>
+          <li>The test is run. The loop will execute so long as it is <code>true</code></li>
+          <li><code>i</code> is incremented by 1</li>
+          <li>This will continue until the test returns <code>false</code>
+        </ul>
+      </section>
+
+      </div>
+    </div>
+
+    <script src="../stylesheets/lib/js/head.min.js"></script>
+    <script src="../javascripts/reveal.min.js"></script>
+
+    <script>
+
+      Reveal.initialize({
+        theme: Reveal.getQueryHash().theme,
+        dependencies: [
+          { src: '../plugin/highlight/highlight.js',
+            async: true,
+            callback: function() {
+              hljs.initHighlightingOnLoad();
+            } 
+          }
+        ],
+        history: true
+      });
+
+    </script>
+
+  </body>
+</html>
