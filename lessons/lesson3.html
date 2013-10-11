@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>reveal.js - Barebones</title>
+
+    <link rel="stylesheet" href="../stylesheets/reveal/reveal.min.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/reveal/theme/solarized.css">
+    <link rel="stylesheet" href="../stylesheets/lib/css/zenburn.css">
+
+  </head>
+
+  <body>
+
+    <div class="reveal">
+      <div class="slides">
+
+      <section>
+        <h1>PCS Javascript</h1>
+        <h2>Lesson 3: Functions and Function calls</h2>
+      </section>
+
+      <section>
+        <section>
+          <h2>Function calls</h2>
+          <pre><code class="javascript">
+            var x;
+
+            x = aFunction(param1, param2);
+
+            // x is now equal to the return value of aFunction
+          </code></pre>
+          <p>Functions allow us to encapsulate code into discrete, reusable blocks. Functions are called with a variable number of paremeters (depending on the function) and may return single value.</p>
+        </section>
+
+        <section>
+        <h2>Function calls</h2>
+        <pre><code>
+          
+                  console.log("Hello World");
+
+        </code></pre>
+        <p>You've already been using one function call. <code>console.log(String)</code> is a function that logs the given string to standard output.</p>
+          
+        </section>
+
+        <section>
+          <h2>Function calls</h2>
+          <p>A lot of really useful mathematical functions are attached to to the <code>Math</code> object. Let's focus on two in particular.</p>
+          <pre><code class="javascript">
+  Math.random();
+  // returns a random decimal between 0 (inclusive) and 1 (exclusive)
+  Math.floor(Number);
+  // returns only the integer part of a number. 
+          </code></pre>
+          <p>We can combine these two functions to add random behavior to our code (in a good way)</p>
+
+        </section>
+
+        <section>
+          <h2>Function Calls</h2>
+          <pre><code>
+          var diceRollResult;
+          // Let's place yahtzee!!!
+
+          for (var i = 0; i &lt;= 5; i += 1) {
+            diceRollResult = Math.floor(6 * Math.random() + 1);
+            // diceRollResult is a random number between 1 and 6
+            console.log("Dice #" + i + ": " + diceRollResult);
+          }
+          </code></pre>
+        </section>
+
+        <section>
+          <img src="../images/sb-challenge.png">
+          <p>Update your code from the <a href="lesson2.html#/10/1">lesson 2 assignment</a> to make it "sometimes" treat 'y' as a vowel</p>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h2>Writing your own functions</h2>
+          <img src="../images/diy.jpg">
+        </section>
+
+        <section>
+          <h2>Writing functions</h2>
+          <p>A function declaration statement looks like this:</p>
+          <pre><code class="javascript">
+            function myAwesomeFunction (param1, param2, etc...) {
+              // here's where we put some code to do things
+
+              return someValueWeHaveComputed;
+              // return statements are optional,
+              // but you need them if you want to use your
+              // function call as an expression
+            }
+          </code></pre>
+          <p>Then we can call our function like this:</p>
+          <pre><code class="javascript">
+            myAwesomeFunction(param1, param2);
+            // if we don't need or didn't specify a return value, or
+            var aValue = myAwesomeFunction(param1, param2);
+            // if we did
+          </code></pre>
+        </section>
+
+          <section>
+            <h2>Writing Functions</h2>
+            <h3>Example</h3>
+            <pre><code>
+              function toThePowerOf(base, exponent) {
+                var result = 1;
+
+                for (var i = 1; i &lt;= exponent; i += 1) {
+                  result *= base;
+                }
+
+                return result;
+              }
+
+              console.log(toThePowerOf(2, 8));
+              // will print out 256
+            </code></pre>
+          </section>
+
+          <section>
+            <img src="../images/sb-challenge.png">
+            <p>Refactor your reverse-the-string-and-delete-the-vowels program so that it's a function that accepts a string and returns the reversed, devoweled string</p>
+          </section>
+
+        </section>
+
+
+      </section>
+
+      </div>
+    </div>
+
+    <script src="../stylesheets/lib/js/head.min.js"></script>
+    <script src="../javascripts/reveal.min.js"></script>
+
+    <script>
+
+      Reveal.initialize({
+        theme: Reveal.getQueryHash().theme,
+        dependencies: [
+          { src: '../javascripts/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+        ],
+        history: true
+      });
+
+    </script>
+
+  </body>
+</html>

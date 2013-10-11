@@ -107,10 +107,10 @@ switch (aBeatle) {
 
       <section>
         <h2>For loops</h2>
-        <pre><code data-trim>
-for (var i = 1; i !== 11; i = i + 1) {
-  console.log("This is loop number " + i);
-}
+        <pre><code>
+        for (var i = 1; i !== 11; i = i + 1) {
+          console.log("This is loop number " + i);
+        }
         </pre></code>
         <ul>
           <li><code>i</code> is initialized at 1;</li>
@@ -118,6 +118,96 @@ for (var i = 1; i !== 11; i = i + 1) {
           <li><code>i</code> is incremented by 1</li>
           <li>This will continue until the test returns <code>false</code>
         </ul>
+      </section>
+
+      <section>
+        <section>
+          <h2>While loops</h2>
+          <pre><code class="javascript">
+          var i = 0;
+          while (i &lt; 10) {
+            console.log("The current value of i is: " + i);
+            i += 1;
+          }
+          </code></pre>
+          <p><code>while</code> loops are a little simpler than <code>for</code> loops. The statement only takes one paramenter: the conditional test. This means you have to handle any required initialization before the loops runs, and any incrementing that needs to happen has to happen within the body of the loop itself.</p>
+        </section>
+
+        <section>
+          <h2>While loops</h2>
+          <pre><code class="javascript">
+        var i = 1337;
+        while (i !== 1337) {
+          console.log("The code within this loop will never run");
+        }
+          </code></pre>
+          <p>The <code>while</code> loop's test is run before the first time the loop code executes, thus it is possible that the loop may not run at all.</p>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h2>Do-While Loops</h2>
+          <pre><code>
+            var i = 1;
+            do {
+              console.log("Potato!");
+              i += 1;
+            } while (i &lt; 10);
+          </code></pre>
+          <ul>
+            <li>do-while loops are rather a lot like for loops</li>
+            <li>The main difference is that a do-while loop will always execute the loop code at least one time</li>
+            <li>This is useful when you have a block of code you know needs to run once, and maybe more times</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Do-While Loops</h2>
+          <pre><code>
+var i = 1000000;
+do {
+  console.log("This code will run once no matter what
+               condition follows the do block!"); 
+} while (i &lt; 10);
+          </code></pre>
+          <ul>
+            <li>Notice that a semicolon follows the while conditional</li>
+          </ul>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <img src="../images/sb-challenge.png">
+        </section>
+        <section>
+          <h2>Assignment</h2>
+          <h3>write some code that does the following:</h3>
+          <ul>
+            <li>declare an arbitrary string of arbitrary length</li>
+            <li>uses a loop and a condition (of some sort)</li>
+            <li>prints out the string, reversed and with its vowels deleted</li>
+          </ul>
+        </section>
+        <section>
+          <h2>A possible solution</h2>
+          <pre><code>
+    var myName = "It's a beautiful day. Don't let it get away!";
+    var output = "";
+
+    for (var i = myName.length - 1; i >= 0; i--) {
+        switch (myName[i]) {
+            case 'a': case 'e': case 'i': case 'o': case 'u':
+            case 'A': case 'E': case 'I': case 'O': case 'U':
+                break;
+            default:
+                output += myName[i];
+        }
+    }
+    console.log(output);
+          </code></pre>
+        </section>
       </section>
 
       </div>
@@ -131,12 +221,8 @@ for (var i = 1; i !== 11; i = i + 1) {
       Reveal.initialize({
         theme: Reveal.getQueryHash().theme,
         dependencies: [
-          { src: '../plugin/highlight/highlight.js',
-            async: true,
-            callback: function() {
-              hljs.initHighlightingOnLoad();
-            } 
-          }
+          { src: '../javascripts/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
         ],
         history: true
       });
