@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Javascript Lesson 4</title>
+
+    <link rel="stylesheet" href="../stylesheets/reveal/reveal.min.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/reveal/theme/solarized.css">
+    <link rel="stylesheet" href="../stylesheets/lib/css/zenburn.css">
+
+  </head>
+
+  <body>
+
+    <div class="reveal">
+      <div class="slides">
+
+        <section>
+          <h1>PCS Javascript</h1>
+          <h2>Lesson 4: Arrays</h2>
+        </section>
+        <section>
+          <section>
+            <h2>Arrays</h2>
+            <pre><code>
+        var dogs = ["Fido", "Rex", "Maggie", "Pumpkin"];
+
+        console.log(dogs[2]);
+        // Maggie
+            </code></pre>
+            <p>Javascript arrays are a way store a set of data for either random or sequential access. We refer to a particular element of the array by using an index notation, just like with individual characters in Strings.</p>
+          </section>
+
+          <section>
+            <h2>Javascript</h2>
+            <pre><code>
+        var dogs = ["Fido", "Rex", "Maggie", "Pumpkin"];
+
+        for (var i = 0; i &lt;= dogs.length; i++) {
+          console.log(dogs[i]);
+        }
+
+        // Fido
+        // Rex
+        // Maggie
+        // Pumpkin
+            </code></pre>
+            <p>We can iterate through the array sequentially with a loop. Just like with Strings</p>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Array Functions</h2>
+            <p>Javascript provides a number of helpful functions for use with arrays. We'll look at a few.</p>
+            <pre><code class="javascript">
+            // push and pop are array methods that add
+            // or remove elements from the end of an array
+
+              var foo = [7, "eleven"];
+
+              foo.pop(); // returns "eleven"
+              console.log(foo); // prints [ 7 ]
+
+              foo.push(11); // returns 2, the new length of the array
+              console.log(foo); // prints [ 7, 11 ]
+            </code></pre>
+          </section>
+          <section>
+            <h2>Array Functions</h2>
+            <pre><code class="javascript">
+        // shift and unshift are like push and pop except they
+        // add and remove elements from the beginning of the array
+
+        var bar = ["circle", "K"];
+
+        bar.shift(); // returns "circle"
+        console.log(bar); // prints [ "K" ]
+
+        bar.unshift("O"); // returns 2, the new length of the array
+        console.log(bar); // prints [ "O", "K" ]
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>Array Functions</h2>
+            <p>split is actually a String function, but it returns an array</p>
+            <pre><code>
+  var someStupidString = "I am the very model of a modern major general"
+
+  var words = someStupidString.split(" ");
+  console.log(words);
+
+  // ["I", "am", "the", "very", "model", "of", 
+  //  "a", "modern". "major", "general"]
+            </code></pre>
+            <p>split breaks a string into an array using the specified character as the breaking deliminator.</p>
+          </section>
+
+          <section>
+          <h2>Array Functions</h2>
+          <p>Two other Array functions, reverse and join, can be combined with split to solve the word reversal problem in only one line!</p>
+          <pre><code class="javascript">
+var sen = "Four score and seven years ago Winne-the-Pooh was first released!"
+
+var reversedSen = str.split(" ").reverse().join(" ");
+
+console.log(reversedSen);
+
+// prints: 'released! first was Winne-the-Pooh ago years seven and score Four'
+
+// array.reverse() reverses the elements of the array returned by split()
+// array.join(" ") joins the elements of the array into a new String,
+// separated by a " "
+          </code></pre>
+          <p>It's important to realize that this sequence of operations does not affect the original value of the string. </p>
+          </section>
+        </section>
+
+        <section>
+          <h2>foreach() loops</h2>
+          <pre><code class="javascript">
+            var testScores = [80, 82, 92, 67, 97, 73, 74];
+
+            testScores.forEach(function (item, index) {
+              console.log("Test score at index #" + index + ": " item);
+            });
+
+            /* will print:
+               Test score at index #0: 80
+               Test score at index #1: 82
+               Test score at index #2: 92
+               Test score at index #3: 67
+               Test score at index #4: 97
+               Test score at index #5: 73
+               Test score at index #6: 74
+            */
+          </code></pre>
+        </section>
+
+      </div>
+    </div>
+
+    <script src="../stylesheets/lib/js/head.min.js"></script>
+    <script src="../javascripts/reveal.min.js"></script>
+
+    <script>
+
+      Reveal.initialize({
+        theme: Reveal.getQueryHash().theme,
+        dependencies: [
+          { src: '../javascripts/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+        ],
+        history: true
+      });
+
+    </script>
+
+  </body>
+</html>
