@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Javascript Lesson 4</title>
+
+    <link rel="stylesheet" href="../stylesheets/reveal/reveal.min.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/reveal/theme/solarized.css">
+    <link rel="stylesheet" href="../stylesheets/lib/css/zenburn.css">
+
+  </head>
+
+  <body>
+
+    <div class="reveal">
+      <div class="slides">
+
+        <section>
+          <h1>PCS Javascript</h1>
+          <h2>Lesson 5: Objects</h2>
+        </section>
+
+        <section>
+          <section>
+            <h2>Javascript Objects</h2>
+            <p>Objects are Javascript fundamental data management structure. Most of the time you write Javascript, you'll be dealing with Objects</p>
+            <pre><code>
+          var contact = {
+            firstName: "David",
+            lastName: "Manning",
+            phone: "503-KL5-1337",
+          };
+          console.log(contact.firstName + " " + contact.lastName);
+            </code></pre>
+            <p>Objects are basically sets of key-value pairs. You can think of them like dictionaries.</p>
+          </section>
+            <section>
+              <h2>Javascript Objects</h2>
+              <pre><code>
+          var object = {};
+          object.tires = 4;
+          object.color = "Green";
+          object.horn  = true;
+              </code></pre>
+              <p>You can create an empty object, and add key/value pairs programatically as needed.</p>
+          </section>
+
+          <section>
+            <h2>Javascript Objects</h2>
+            <pre><code>
+          var object = {};
+          object["color"] = "orange";
+          object["fluffy"] = true;
+          object["paws"] = 2;
+            </code></pre>
+            <p>You can also create object keys dynamically using index notation.</p>
+          </section>
+
+        </section>
+
+        <section>
+          <section>
+            <h2>Passing objects into functions</h2>
+            <p>Objects passed into functions are passed <em>by reference</em>. This means the function receiving the object is working with the original object, rather than a copy</p>
+          </section>
+
+          <section>
+            When passing a number, string or boolean value, a local copy is created with the function body
+            <pre><code>
+            var aNumber = 1;
+
+            function addOne (x) {
+              x += 1;
+            } 
+
+            addOne(aNumber);
+
+            console.log(aNumber); // prints: 1
+          </code></pre>
+          </section>
+
+          <section>
+            When we pass an object into the function, we are working with the same object that exists in the outer scope.
+            <pre><code>
+            var myBologna = { firstName: "O S C A R"};
+
+            function bolognaNamer (bologna) {
+              bologna.secondName = "M A Y E R";
+            }
+
+            console.log(myBologna);
+            // prints: { firstName: 'O S C A R', secondName: 'M A Y E R' }
+            </code></pre>
+            <p>Note: This is also true for arrays passed into functions</p>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Object methods</h2>
+            <p>You can store functions into object keys. Such functions are usually called <em>object methods</em></p>
+            <pre><code>
+            var kittie = {
+              eyes: "green",
+              name: "mittens"
+              speak: function () {
+                console.log("Meow!");
+              }
+            }
+            kittie.speak();
+            // prints: "Meow!";
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>Object methods</h2>
+            <pre><code>
+              var person = {
+                firstName: "David",
+                lastName: "Manning"
+                sayMyName: function () {
+                  console.log(this.firstName + " " + this.lastName);
+                }
+              }
+
+              person.sayMyName();
+            </code></pre>
+            <p>Within an object method, you can use <code>this.property</code> to reference one of the objects properties</p>
+          </section>
+        </section>
+
+      </div>
+    </div>
+
+    <script src="../stylesheets/lib/js/head.min.js"></script>
+    <script src="../javascripts/reveal.min.js"></script>
+
+    <script>
+
+      Reveal.initialize({
+        theme: Reveal.getQueryHash().theme,
+        dependencies: [
+          { src: '../javascripts/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+        ],
+        history: true
+      });
+
+    </script>
+
+  </body>
+</html>
