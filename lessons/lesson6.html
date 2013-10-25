@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Javascript: Lesson 6</title>
+
+    <link rel="stylesheet" href="../stylesheets/reveal/reveal.min.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/reveal/theme/solarized.css">
+    <link rel="stylesheet" href="../stylesheets/lib/css/zenburn.css">
+
+  </head>
+
+  <body>
+
+    <div class="reveal">
+      <div class="slides">
+      <section>
+        <h1>PCS Javascript</h1>
+        <h2>Object Inheritance</h2>
+      </section>
+
+      <section>
+        <section>
+          <h2>The prototype chain</h2>
+          <p>All Javascript objects have a special, invisible property called <em>prototype</em> that references the object's direct parent. Whenever you reference a property of an object, the interpreter first checks the object for a property of that name. If it doesn't find it, it checks the object's prototype. If it doesn't find a matching property there, it check's the prototype's prototype. This continues up the <em>prototype chain</em> until the interpreter finds a matching property, or there are no more prototypes to check</p>
+        </section>
+
+        <section><h2>The prototype chain</h2>
+        <pre><code class="javascript">
+var obj = {frosting: true}              /* Objects created with object
+                                           literal notation have Object.prototype
+                                           as a prototype */
+
+var sonOfObj = Object.create(obj);      // sonOfObj has obj as a prototype
+var daughterOdObj = Object.create(obj); // daughterOfObj does too
+
+console.log(sonOfObj.frosting);         // prints: true
+daughterOfObj.frosting = false;
+console.log(daughterOfObj.frosting);    // prints: false 
+        </code></pre>
+        <p>Properties that have the same name as prototype objects <em>override</em> or <em>mask</em> the prototype properties.</p>
+        </section>
+      </section>
+
+      <section>
+        <section>
+          <h2>Class creation pattern</h2>
+          <ul>
+            <li class="fragment">You may be aware that Object Oriented Programming often involves the notion if <em>classes</em></li>
+            <li class="fragment">Classes are like blueprints for objects that don't exist yet</li>
+            <li class="fragment">Classes get <em>instantiated</em> into objects later in yor program</li>
+            <li class="fragment">Javascript doesn't have classes</li>
+            <li class="fragment">Except it sorta does...</li>
+            <li class="fragment">We can create the general functionality with convention</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Class creation pattern</h2>
+          <pre><code>
+  function Book (title, pages, year) {
+    this.title = title;
+    this.pages = pages;
+    this.year = year;
+  }
+
+  var aNewBook = new Book("Go the F*** to Sleep", 33, 2011);
+  var aDifferentBook = new Book("The Gary Busey Handbook", 396, 2013);
+
+  console.log(aDifferentBook.title + " is " + aDifferentBook.pages + " long");
+  // prints: The Gary Busey Handbook is 396 pages long
+          </code></pre>
+          <ul>
+            <li>The Book function is called a <em>constructor</em>. It's special, and it gets capitalized</li>
+            <li>The <code>new</code> operator is new (to us). What's up with it?</li>
+            <li><code>aNewBook</code> and <code>aDifferentBook</code> are called <em>instances</em> of Book</li>
+            <li>What is <code>this</code> referring to inside <code>Book</code>?</li>
+          </ul>
+        </section>
+        <section>
+          <h2>The <code>new</code> operator</h2>
+          <p>The <code>new</code> operator is one of the weirdest things in javascript. It exists because back in the late 90's everybody thought Java was the best thing ever. Java has <code>new</code>, so Javascript needed to have it too. Whatever, here's what it does:</p>
+          <ol>
+            <li>It creates a new object</li>
+            <li>It calls the constructor function and passes the newly created object in as <code>this</code></li>
+            <li>It evaluates to either:
+              <ul>
+                <li>The object returned by the constructor function (if it returns an object)</li>
+                <li>The object that was created and passed into the constructor as <code>this</code> (if it does not)</li>
+              </ul></li>
+          </ol>
+        </section>
+
+        <section>
+          <h2>Class creation pattern</h2>
+          <pre><code>
+  function CareBear (name, power) {
+    this.name = name;
+    this.power = power;
+  }
+
+  CareBear.prototype.stare() = function () {
+    console.log(this.name + " used the power of " + this.power + "!");
+  }
+
+  var wishBear = new CareBear("Wish Bear", "hope");
+  var cheerBear = new CareBear("Cheer Bear", "happiness");
+
+  wishBear.stare();
+  // prints: Wish Bear used the power of hope!
+          </code></pre>
+          <p>Every function has a special property called <em>prototype</em>. It isn't exactly the same thing as an object's prototype, though. Instead of being the actual prototype of the function object, a function's prototype property becomes the prototype of the new object created when the function is called as a constructor.</p>
+        </section>
+        <section>
+          <img src="../images/sb-challenge.png">
+          <p>Use the class creation pattern to implement an Order class for a shopping cart. It should:</p>
+          <ul>
+            <li>Have properties for description, count, and price</li>
+            <li>Have <code>cost</code> function on the prototype that returns <code>price * count</code></li>
+            <li>Have a <code>getId</code> function that returns not more than the first three letters of the description plus three random digits afterward</li>
+          </ul>
+
+        </section>
+      </section>
+      </div>
+    </div>
+
+    <script src="../stylesheets/lib/js/head.min.js"></script>
+    <script src="../javascripts/reveal.min.js"></script>
+
+    <script>
+
+      Reveal.initialize({
+        theme: Reveal.getQueryHash().theme,
+        dependencies: [
+          { src: '../javascripts/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+        ],
+        history: true
+      });
+
+    </script>
+
+  </body>
+</html>
