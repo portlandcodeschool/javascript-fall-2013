@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Javascript: Lesson 6</title>
+
+    <link rel="stylesheet" href="../stylesheets/reveal/reveal.min.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/reveal/theme/solarized.css">
+    <link rel="stylesheet" href="../stylesheets/lib/css/zenburn.css">
+
+  </head>
+
+  <body>
+    <div class="reveal">
+    	<div class="slides">
+            <section>
+            	<h1>PCS Javascript</h1>
+                <h2>Modules</h2>
+            </section>
+
+            <section>
+                <section>
+                    <h2>Modules</h2>
+                    <p>
+                        After writing so much JavaScript over
+                        the last few weeks, you might be wondering:
+                    <p>
+                    <p class="fragment"><em>
+                        How do I reuse code that I've written?
+                    </em></p>
+                </section>
+                <section>
+                    <h2>Modules</h2>
+                    <p>
+                        In JavaScript, we write "modules." 
+                    </p>
+                    <p>
+                        A module is to a single JavaScript
+                        file as a square is to a rectangle.
+                    </p>
+                    <p class="fragment">
+                        All modules are JavaScript files, not
+                        all JavaScript files are modules.
+                    </p>
+                </section>
+                <section>
+                    <h2>Modules</h2>
+                    <p>
+                        A module is typically a JavaScript file that:
+                    </p>
+                    <ul>
+                        <li><em>Exports</em> a JavaScript value</li>
+                        <li><em>Imports</em> needed functionality from other modules.</li>
+                        <li>Are <em>written</em>, not <em>generated</em>.</li>
+                    </ul>
+                </section>
+            </section>
+
+            <section>
+                <section>
+                    <h2>An example</h2>
+                    <pre><code>
+// random-digits.js
+module.exports = function(numDigits) {
+  return Math.random().toFixed(numDigits).slice(2);
+}
+                    </code></pre>
+                    <pre><code>
+// test.js
+var digits = require('./random-digits');
+
+console.log('example:', digits(3));
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>Exporting and Importing</h2>
+                    <ul>
+                        <li>You can export <em>any</em> JavaScript value using <br /><code>module.exports = <em>&lt;value&gt;</em></code>.</li>
+                        <li>
+                            When you <code>require</code> that file, the value of <code>module.exports</code> at
+                            the end of that file becomes the value of the <code>require("./that-file")</code> statement.
+                        </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Exporting and Importing</h2>
+                    <pre><code>
+// random-digits.js
+module.exports = function(numDigits) {
+  return Math.random().toFixed(numDigits).slice(2);
+}
+                    </code></pre>
+                    <pre><code>
+// test.js
+var digits = require('./random-digits');
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>Exporting and Importing</h2>
+                    <pre><code>
+// random-digits.js
+module.exports = &lt;GARY BUSEY&gt; 
+                    </code></pre>
+                    <pre><code>
+// test.js
+var digits = &lt;GARY BUSEY&gt;;
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>Try it!</h2>
+                    <p>Remember "fahrenheit to celcius"?</p>
+                    <p>Make a new directory and copy your solution into it.</p>
+                    <p><em>Export</em> the celcius to fahrenheit function!</p>
+                    <p>Open <code>node</code><p>
+                    <p>
+                        In the REPL, <em>import</em> that file using <code>require</code> and find out
+                        what 29&deg;C is!
+                    </p>
+                    <p class="fragment">it's 84.2 degrees!</p>
+                </section>
+            </section>
+
+            <section>
+                <section>
+                    <h2>Finding Modules</h2>
+                    <p>
+                        You may have noticed the <code>./</code>
+                        in our <code>require("./some-file")</code> statements.
+                    </p>
+                </section>
+                <section>
+                    <ul>
+                        <li><strong><code>./XXX</code></strong> says "look in this file's directory for a file named "XXX.js"</li>
+                        <li><strong><code>../XXX</code></strong> says "look in the parent of this file's directory for a file named "XXX.js"</li>
+                        <li><strong><code>/path/to/XXX</code></strong> says "look at this exact path for a file called "XXX.js"</li>
+                    </ul>
+                </section>
+                <section>
+<pre><code>
+// jake.js
+var dad = require('./gary');
+</code></pre>
+<pre><code>
+/
+├── buseys
+│   ├── gary.js &lt;-----+
+│   ├── em.js         |
+│   ├── jake.js ------+
+│   └── pam.js
+└── main.js
+
+1 directory, 3 files
+</code></pre>
+                </section> 
+                <section>
+<pre><code>
+// main.js
+var bestTeeth = require('./buseys/gary');
+</code></pre>
+<pre><code>
+/
+├── buseys
+│   ├── gary.js &lt;-----+
+│   ├── em.js         |
+│   ├── jake.js       | 
+│   └── pam.js        |
+└── main.js      -----+
+
+1 directory, 3 files
+</code></pre>
+                </section> 
+
+                <section>
+<pre><code>
+// main.js
+var hasBeenInStarshipTroopers = require('/buseys/jake');
+</code></pre>
+<pre><code>
+/
+├── buseys
+│   ├── gary.js
+│   ├── em.js 
+│   ├── jake.js  &lt;-----+
+│   └── pam.js         |
+└── main.js      ------+
+
+1 directory, 3 files
+</code></pre>
+                </section> 
+
+                <section>
+<pre><code>
+// jake.js
+var main = require("../main")
+</code></pre>
+<pre><code>
+/
+├── buseys
+│   ├── gary.js
+│   ├── em.js 
+│   ├── jake.js -------+
+│   └── pam.js         |
+└── main.js     &lt;------+
+
+1 directory, 3 files
+</code></pre>
+                </section> 
+            </section>
+            <section>
+
+                <section>
+                    <h2>Packages</h2>
+                    <p>
+                        If your require does not start with <code>./</code>, <code>../</code>, or <code>/</code>, it is a <strong>package</strong> import.
+                    </p>
+<pre><code>
+// example.js
+var say = require('say')
+
+say.speak('Alex', 'hello world', function() {
+    // done speaking.
+})
+</code></pre>
+                </section>
+                <section>
+                    This tells node to start looking for the module you asked for (in
+                    this case, "say").
+                </section>
+                <section>
+<pre><code>
+.
+├── lib/
+│   └── example.js
+├── main.js
+└── node_modules
+    └── say
+
+3 directories, 3 files
+</code></pre>
+                </section>
+
+                <section>
+                    <p>
+                    It looks by listing the directories from
+                    the directory containing the file all the way to the top dir.
+                    </p>
+                    
+                    <p>
+                    Then it adds <code>node_modules/&lt;package name&gt;</code> to each dir.
+                    </p>
+                </section>
+                <section>
+                <p>in the last case, we get:</p>
+<pre><code>
+/lib/node_modules/say
+/node_modules/say
+</code></pre>
+<pre><code>
+.
+├── lib/
+│   └── example.js
+├── main.js
+└── node_modules
+    └── say
+
+3 directories, 3 files
+</code></pre>
+                    <p>and so "say" gets loaded from the directory above us!</p>
+                </section>
+                <section>
+                    <ul>
+                        <li> 
+                        Node.JS packages are usually <em>much</em> smaller in scope
+                        than packages in Ruby or Python. They typically do one thing only.
+                        </li> 
+
+                        <li> 
+                        You can find packages using <a href="http://npm.im/">http://npmjs.org/</a>.
+                        </li>
+
+                        <li>
+                        Or jump directly to a package with <code>http://npm.im/&lt;package name&gt;</code>.
+                        </li>
+
+                        <li>
+                        Install packages using <code>npm install &lt;package name&gt;</code>.
+                        </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <ul>
+                        <li>
+                            If you want to share code that you've written using third party modules,
+                            use <code>npm init</code> to create a <code>package.json</code> in the root
+                            of your repo.
+                        </li>
+                        <li>
+                            Then <code>npm install --save &lt;package name&gt;</code>. This will update the
+                            <code>package.json</code> with the appropriate dependencies.
+                        </li>
+                        <li>
+                            <strong>PROTIP:</strong> package.json files belong in your repo.
+                            <code>node_modules/</code> directories do not.
+                        </li>
+                    </ul>
+                </section>
+            </section>
+
+            <section>
+                <section>   
+                    <h2>Built in Modules</h2>
+                    <p>Okay, one last bit&hellip;</p>
+                </section>
+
+                <section>   
+                    <h2>Built in Modules</h2>
+                    <p>Node.JS itself comes with a set of "built in" packages.</p>
+                    <p>You can read about them here: <a href="http://nodejs.org/api/">http://nodejs.org/api/</a></p>
+                </section>
+
+                <section>
+                    <h2>Built in Modules</h2>
+                    <p>For example, we can use the <a href="http://nodejs.org/api/url.html">URL</a>
+                    module to parse URLs:</p>
+
+                    <pre><code>
+var url = require('url');
+
+var parsed = url.parse('http://neversaw.us/path/name?hello=world', true);
+console.log(parsed);
+// outputs:
+{ protocol: 'http:',
+  slashes: true,
+  auth: null,
+  host: 'neversaw.us',
+  port: null,
+  hostname: 'neversaw.us',
+  hash: null,
+  search: '?hello=world',
+  query: { hello: 'world' },
+  pathname: '/path/name',
+  path: '/path/name?hello=world',
+  href: 'http://neversaw.us/path/name?hello=world' }
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>Built in Modules</h2>
+                    <p>Or the <a href="http://nodejs.org/api/net.html">net</a> module
+                    to create <strong>low level</strong> TCP servers&hellip;</p>
+                    <pre><code>
+var net = require('net');
+
+console.log("open http://localhost:8124/!");
+console.log("press CTRL + C to quit.");
+net.createServer(function(connection) {
+  connection.write('HTTP/1.1 200 OK\r\n\r\n');
+  connection.pipe(process.stdout);
+  connection.pipe(connection);
+  connection.on('timeout', function() {
+    connection.end();
+  })
+}).listen(8124);
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>Built in Modules</h2>
+                    <p>Or the <a href="http://nodejs.org/api/http.html">http</a> module
+                    to create <strong>high level</strong> HTTP servers&hellip;</p>
+                    <pre><code>
+var http = require('http');
+var url = require('url');
+
+console.log("open http://localhost:8124/!");
+console.log("press CTRL + C to quit.");
+server = http.createServer(function(request, response) {
+  var parsed = url.parse(request.url, true);
+  response.writeHead(200, {});
+  response.end('hey there, you asked me for:', parsed.pathname);
+}).listen(8124);
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>Try it!</h2>
+                    <p>Make a new directory.</p>
+                    <p>In the terminal, in that directory, run <code>npm install say</code>.</p>
+                    <p>Make a file called <code>main.js</code>.</p>
+<pre><code>
+var http = require('http');
+var url = require('url');
+var say = require('say');
+
+console.log("open http://localhost:8124");
+console.log("press CTRL + C to quit.");
+http.createServer(function(request, response) {
+  var text = url.parse(request.url, true).query.text;
+  say.speak('Alex', text, function() {
+    console.log("ok, I said ", text);
+    
+    response.writeHead(200, {});
+    response.end("I said it.");
+  });
+}).listen(8124);
+</pre></code>
+<p>Try and make it not say "undefined"!</p>
+                </section>
+            </section>
+        </div>
+    </div>
+
+
+    <script src="../stylesheets/lib/js/head.min.js"></script>
+    <script src="../javascripts/reveal.min.js"></script>
+
+    <script>
+
+      Reveal.initialize({
+        theme: Reveal.getQueryHash().theme,
+        dependencies: [
+          { src: '../javascripts/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+        ],
+        history: true
+      });
+
+    </script>
+
+  </body>
+</html>
