@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Javascript Lesson 8</title>
+
+    <link rel="stylesheet" href="../stylesheets/reveal/reveal.min.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/reveal/theme/solarized.css">
+    <link rel="stylesheet" href="../stylesheets/lib/css/zenburn.css">
+
+  </head>
+
+  <body>
+
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>PCS Javascript</h1>
+          <h2>Lesson 8: Asynchronous I/O</h2>
+          <p>The I/O which is asynchronous</p>
+        </section>
+
+        <section>
+          <h2>Remember our original introduction of Node.js?</h2>
+          <a href="/lessons/lesson1.html#/3"><p>Hop in the way-back machine</p></a>
+        </section>
+
+        <section>
+          <section>
+            <h2>Asynchronous I/O</h2>
+            <blockquote>In contrast to synchronous I/O, asynchronous I/O means we do not wait for one thing to happen before doing the next thing. Synchronous I/O is sometimes known as <em>blocking</em> I/O, where Asynchronous I/O is called <em>non-blocking</em>.</blockquote>
+          </section>
+
+          <section>
+            <h2>Asynchronous I/O</h2>
+            <p>Let's install a module from npm called <code>read</code></p>
+            <pre><code>
+          npm install read
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>Asynchronous I/O</h2>
+            <p><code>read</code> lets us interactively prompt the user for input</p>
+            <pre><code>
+        var read = require('read');
+
+        read({ prompt: '>' }, function (err, result) {
+          console.log("You typed: " + result);
+        });
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>Asynchronous I/O</h2>
+            <pre><code>
+        var read = require('read');
+
+        read({ prompt: '>' }, function (err, result) {
+          console.log("You typed: " + result);
+        });
+
+        console.log("Where does this message get printed?");
+            </code></pre>
+            <p>Run the code above and note that the last line prints a message before any data is received from the user</p>
+          </section>
+
+          <section>
+            <img src="../images/sb-challenge.png">
+            <h3>Write a program that: </h3>
+            <ol>
+              <li>Prompts the user for their name</li>
+              <li>Stores the name in a top level variable called <code>name</code></li>
+              <li>Greets the user with "Hello, &lt;name&gt;"</li>
+            </ol>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Asynchronous I/O:</h2>
+            <h3>Further Up and Further In</h3>
+            <p>What if we wanted to prompt the user for multiple input data?</p>
+            <pre><code>
+          var read = require('read');
+
+          read({ prompt: '>' }, function (err, result) {
+            console.log("Your first input is " + result);
+          });
+
+          read({ prompt: '>' }, function (err, result) {
+            console.log("Your second input is " + result);
+          });
+            </code></pre>
+          <p>You might try something like this.</p>
+          </section>
+
+          <section>
+            <h1>:(</h1>
+          </section>
+
+          <section>
+            <h2>Asynchronous I/O</h2>
+            <p>This is where asynchronous I/O starts to get tricky. The read() function doesn't block the exectution of the thread, so we end up listening to the same line of input twice. This almost certainly not what we want to do.</p>
+          </section>
+
+          <section>
+            <h2>Asynchronous I/O</h2>
+            <p>Let's try this instead</p>
+            <pre><code>
+        var read = require('read');
+
+        read({ prompt: '>' }, function (err, result) {
+          console.log("Your first input was " + result);
+
+          read({ prompt: '>' }, function (err, result) {
+            console.log("Your second input was " + result);
+          });
+        });
+            </code></pre>
+        <p>The second read call is nested inside the callback to the first, so our program won't "get there" until after the first prompt has been answered</p>
+          </section>
+
+          <section>
+            <h2>Asynchronous I/O</h2>
+            <pre><code>
+    var read = require('read');
+
+    read({ prompt: '>' }, function (err, result) {
+      console.log("Your first input was " + result);
+
+      read({ prompt: '>' }, function (err, result) {
+        console.log("Your second input was " + result);
+
+        read({ prompt: '>' }, function (err, result) {
+          console.log("Your third input was " + result);
+
+          read({ prompt: '>' }, function (err, result) {
+            console.log("Your forth input was " + result);
+
+            //....
+          });
+        });
+      });
+    });
+            </code></pre>
+            <p>Things can get out of hand...</p>
+          </section>
+
+          <section>
+             <h2>Asynchronous I/O</h2>
+             <p>Here's a better way:</p>
+             <pre><code>
+    var read = require('read');
+
+    read({prompt: '> '}, getName);
+
+    function getName (err, result, isDefault) {
+      console.log("Your first input is: " + result);
+
+      read({prompt: '> '}, getNumber);
+    }
+
+    function getNumber (err, result, isDefault) {
+      console.log("Your second input is: " + result);
+    }
+             </code></pre>
+          </section>
+
+          <section>
+          <img src="../images/sb-challenge.png">
+          <p>Write a program that:</p>
+          <ol>
+            <li>Implements an Contact class including name, address and phone properties, as well as .toString() method to format the output</li>
+            <li>Prompts the user for each property in turn</li>
+            <li>Stores the data into the object</li>
+            <li>Prints out the object</li>
+          </ol>
+          </section>
+        </section>
+      </div>
+    </div>
+
+    <script src="../stylesheets/lib/js/head.min.js"></script>
+    <script src="../javascripts/reveal.min.js"></script>
+
+    <script>
+
+      Reveal.initialize({
+        theme: Reveal.getQueryHash().theme,
+        dependencies: [
+          { src: '../javascripts/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+        ],
+        history: true
+      });
+
+    </script>
+
+  </body>
+</html>
